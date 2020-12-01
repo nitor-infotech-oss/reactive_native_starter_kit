@@ -1,0 +1,36 @@
+{
+  // Place your ReactNativeStarterKit workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  "Functional Component": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": "rn_comp_func",
+    "body": [
+      "//Please add the library import below.",
+      "import React from 'react';",
+      "import {StyleSheet, View, Text} from 'react-native';\n",
+      "//Please add the Custom component import below.\n",
+      "//Please add the Custom constants import below.\n",
+      "//Add the constant variables below.\n",
+      "interface props {}\n",
+      "const $1 = (props: props) => {",
+      "//If using useState hook place them below\n",
+      "//If using use effests place them below.\n",
+      "//All the custom/business logic function below.\n",
+      "//Make sure to add UnderScore before every custom function you declare (Eg:-_functionName)",
+      "\treturn (",
+      "\t\t<View>",
+      "\t\t\t<Text>Test</Text>",
+      "\t\t</View>",
+      "\t);",
+      "};\n",
+      "export default $1;\n",
+      "const styles = StyleSheet.create({});\n\n"
+    ],
+    "description": "Creates basic Functional component"
+  }
+}
