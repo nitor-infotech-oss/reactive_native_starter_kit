@@ -7,13 +7,23 @@
  *
  * @format
  */
-
+import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import HomeScreen from '@screens/homeScreen';
+import SampleScreen from '@screens/SampleScreen';
+import TabScreen from '@screens/TabScreen';
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
 // import HomeScreen from
 
 // declare const global: {HermesInternal: null | {}};
@@ -23,57 +33,53 @@ const App = () => {
     SplashScreen.hide();
   }, []);
 
+  function BottomTabs() {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen name="Tab" component={TabScreen} />
+        <Tab.Screen name="Sample" component={SampleScreen} />
+      </Tab.Navigator>
+    );
+  }
+
+  function DrawerScreens() {
+    return (
+      <Drawer.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={BottomTabs}
+          options={{headerShown: false}}
+        />
+      </Drawer.Navigator>
+    );
+  }
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <HomeScreen />
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{title: 'Home'}}
+        />
+        <Stack.Screen
+          name="Sample"
+          component={SampleScreen}
+          options={{title: 'Sample'}}
+        />
+        {/* <Stack.Screen
+            name="BottomTabs"
+            component={BottomTabs}
+            options={{headerShown: false}}
+          /> */}
+        <Stack.Screen
+          name="BottomTabs"
+          component={DrawerScreens}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;

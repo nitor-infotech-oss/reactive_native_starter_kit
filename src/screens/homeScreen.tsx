@@ -1,6 +1,6 @@
 //Please add the library import below.
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, Alert} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {Button} from 'react-native-paper';
 import {apiCall} from '@utils/api';
 
@@ -9,12 +9,13 @@ import {apiCall} from '@utils/api';
 //Please add the Custom constants import below.
 
 //Add the constant variables below.
+interface props {
+  navigation: any;
+}
 
-interface props {}
-
-const HomeScreen = (props: props) => {
+const HomeScreen = ({navigation}: props) => {
   //If using useState hook place them below
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState({});
   //If using use effests place them below.
   useEffect(() => {
     doApiCall();
@@ -45,20 +46,41 @@ const HomeScreen = (props: props) => {
     }
   };
 
+  const onNavigate = (screen: String) => {
+    navigation.navigate(screen);
+  };
+
   //All the custom/business logic function below.
 
   //Make sure to add UnderScore before every custom function you declare (Eg:-_functionName)
   return (
-    <View>
-      <Text>Test</Text>
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text>Home</Text>
+      </View>
 
-      <Button onPress={onButtonPress}>
-        React Native Paper Button, Press me
-      </Button>
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={onButtonPress}
+          style={[styles.button, {backgroundColor: '#4645'}]}>
+          React Native Paper Button, Press me
+        </Button>
+        <Button onPress={() => onNavigate('Sample')} style={styles.button}>
+          Navigate to Next Screen
+        </Button>
+        <Button onPress={() => onNavigate('BottomTabs')} style={styles.button}>
+          Navigate to Tabbed Screen
+        </Button>
+      </View>
     </View>
   );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {backgroundColor: '#458', margin: 5},
+  container: {flex: 1},
+  textContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  buttonContainer: {paddingBottom: 50, paddingHorizontal: 20},
+});
