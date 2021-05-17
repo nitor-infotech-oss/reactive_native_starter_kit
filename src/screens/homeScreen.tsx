@@ -1,6 +1,6 @@
 //Please add the library import below.
-import React, {useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 import {apiCall} from '@utils/api';
 
@@ -14,20 +14,36 @@ interface props {}
 
 const HomeScreen = (props: props) => {
   //If using useState hook place them below
-
+  const [responseData, setResponseData] = useState(null);
   //If using use effests place them below.
   useEffect(() => {
-    (async () => {
-     const res = await apiCall({
+    doApiCall();
+  }, []);
+
+  const doApiCall = async () => {
+    try {
+      const res = await apiCall({
         apiPath: 'https://reqres.in/api/users',
         params: null,
         headers: null,
         method: 'GET',
       });
 
-      console.log("res", res)
-    })();
-  }, []);
+      setResponseData(res);
+      console.log('res', res);
+    } catch (error) {
+      console.log('has error', error);
+    }
+  };
+
+  const onButtonPress = () => {
+    if (!responseData) {
+      doApiCall();
+      responseData && alert(JSON.stringify(responseData));
+    } else {
+      alert(JSON.stringify(responseData));
+    }
+  };
 
   //All the custom/business logic function below.
 
@@ -36,7 +52,9 @@ const HomeScreen = (props: props) => {
     <View>
       <Text>Test</Text>
 
-      <Button onPress={() => alert('pressed')}>Press me</Button>
+      <Button onPress={onButtonPress}>
+        React Native Paper Button, Press me
+      </Button>
     </View>
   );
 };

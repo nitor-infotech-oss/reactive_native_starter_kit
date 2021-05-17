@@ -7,12 +7,12 @@ import {performanceMonitor} from '@utils/Monitoring/performance';
 axios.defaults.headers.common.Accept = 'application/json';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-export const get = async (apiPath: any, params: any, headers: any) => {
-
-  performanceMonitor({apiPath, params, headers, method: 'GET'});
+export const apiCall = async (apiCallData: Object) => {
+  const {apiPath, params, headers, method} = apiCallData;
+  performanceMonitor({apiPath, params, headers, method});
 
   const response = await axios({
-    method: 'get',
+    method: method.toLowerCase(),
     url: apiPath,
     params,
     headers,
@@ -22,38 +22,3 @@ export const get = async (apiPath: any, params: any, headers: any) => {
 
   return response;
 };
-
-export const post = async (apiPath: any, data: any, headers: any) => {
-  const response = await axios({
-    method: 'post',
-    url: apiPath,
-    data,
-    headers,
-  });
-
-  return response;
-};
-
-const postCancalCall = () => {
-  const cancel = {};
-
-  return async (apiPath: String | any, data: any, headers: any) => {
-    if (cancel && cancel[apiPath]) {
-      // Cancel the previous request before making a new request
-      cancel[apiPath].cancel();
-    }
-    // // Create a new CancelToken
-    cancel[apiPath] = axios.CancelToken.source();
-
-    const response = await axios({
-      method: 'post',
-      url: apiPath,
-      data,
-      headers,
-      cancelToken: cancel[apiPath].token,
-    });
-
-    return response;
-  };
-};
-export const postCancalable = postCancalCall();
