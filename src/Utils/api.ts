@@ -7,7 +7,7 @@ import {performanceMonitor} from '@utils/Monitoring/performance';
 axios.defaults.headers.common.Accept = 'application/json';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-export const apiCall = async (apiCallData: Object) => {
+export const apiCall = async (apiCallData: any) => {
   const {apiPath, params, headers, method} = apiCallData;
   performanceMonitor({apiPath, params, headers, method});
 
