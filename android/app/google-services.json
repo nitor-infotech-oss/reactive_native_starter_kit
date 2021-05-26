@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "494135841025",
-    "project_id": "react-native-starter-kit-89165",
-    "storage_bucket": "react-native-starter-kit-89165.appspot.com"
+    "project_number": "414479823220",
+    "project_id": "rn-starter-nitor",
+    "storage_bucket": "rn-starter-nitor.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:494135841025:android:4834c3e2763676e7744b00",
+        "mobilesdk_app_id": "1:414479823220:android:6608cc86463645faff3c21",
         "android_client_info": {
-          "package_name": "com.reactnativestarterkit"
+          "package_name": "com.reactnativestarterkit.nitor"
         }
       },
       "oauth_client": [
         {
-          "client_id": "494135841025-mj0gle1cg98fc61mpgcj80hv69jafhkl.apps.googleusercontent.com",
+          "client_id": "414479823220-69gfebo91i9so1tu07bq00thrs6i0vgn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDRVAiueZ2g_jEDUHQnCg1nZ13oHmhhJxE"
+          "current_key": "AIzaSyBcAZNQIDUB7n--HRmgndNa3cdMo11ZNkU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "494135841025-mj0gle1cg98fc61mpgcj80hv69jafhkl.apps.googleusercontent.com",
+              "client_id": "414479823220-69gfebo91i9so1tu07bq00thrs6i0vgn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "414479823220-240ar1kedcqgr70vajbf3rjfj2c4t0ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.reactnativestarterkit.nitor"
+              }
             }
           ]
         }
