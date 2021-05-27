@@ -2,12 +2,13 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-//Please add the Custom component import below.
+//Please add the Custom component/function import below.
+import {doApiCall} from '@redux/actions/homeScreen';
 
 //Please add the Custom constants import below.
-import {apiCall} from '@utils/api';
+// import {apiCall} from '@utils/api';
 import {Tab} from '@static/icons';
 import {buttonsTitle} from '@static/verbiages';
 
@@ -18,55 +19,28 @@ interface props {
 
 const HomeScreen = ({navigation}: props) => {
   //If using useState hook place them below
-  const [responseData, setResponseData] = useState({});
-  const isLoggedIn = useSelector((state) => state);
-  console.log('===>1', isLoggedIn);
+  // const isLoggedIn = useSelector((state) => state.homeScreen.homescreentest);
+  const dispatch = useDispatch();
 
   //If using use effests place them below.
   useEffect(() => {
-    doApiCall();
-  }, []);
+    dispatch(doApiCall());
+  }, [dispatch]);
 
   //All the custom/business logic function below.
 
-  const doApiCall = async () => {
-    try {
-      const res = await apiCall({
-        apiPath: 'https://reqres.in/api/users',
-        params: null,
-        headers: null,
-        method: 'GET',
-      });
+  const onButtonPress = async () => {
+    const data = await dispatch(doApiCall());
+    console.log('===>1', data);
 
-      setResponseData(res);
-      console.log('res', res);
-    } catch (error) {
-      console.log('has error', error);
-    }
-  };
-
-  const onButtonPress = () => {
-    if (!responseData) {
-      doApiCall();
-      responseData &&
-        Alert.alert('Alert Title', JSON.stringify(responseData), [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ]);
-    } else {
-      Alert.alert('Alert Title', JSON.stringify(responseData), [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
-    }
+    Alert.alert('Alert Title', 'Test', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
   };
 
   const onNavigate = (screen: String) => {
