@@ -8,3 +8,8 @@ export interface IconsInterface {
   size: number;
   color?: string;
 }
+
+export interface ReduxAction {
+  type: string | number;
+  payload: object | string | number;
+}

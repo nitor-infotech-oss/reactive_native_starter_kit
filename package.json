@@ -7,9 +7,13 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "android:dev": "cd android && ./gradlew clean && cd .. && react-native run-android",
+    "build:android": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
+    "postinstall": "npx jetify"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-firebase/app": "^10.2.0",
     "@react-native-firebase/crashlytics": "^10.2.0",
     "@react-native-firebase/perf": "^10.2.0",
@@ -18,11 +22,14 @@
     "@react-navigation/drawer": "^6.0.0-next.10",
     "@react-navigation/native": "^6.0.0-next.8",
     "@react-navigation/stack": "^6.0.0-next.17",
+    "@types/lodash": "^4.14.170",
     "@types/react-native-vector-icons": "^6.4.6",
     "axios": "^0.21.0",
-    "lodash": "^4.17.20",
+    "graphql": "^15.5.0",
+    "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-config": "^1.4.2",
     "react-native-exception-handler": "^2.10.10",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-paper": "^4.5.0",
@@ -30,7 +37,11 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.2.0",
     "react-native-splash-screen": "^3.2.0",
-    "react-native-vector-icons": "^7.1.0"
+    "react-native-vector-icons": "^7.1.0",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

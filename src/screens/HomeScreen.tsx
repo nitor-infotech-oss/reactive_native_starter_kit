@@ -1,7 +1,8 @@
 //Please add the library import below.
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
+import {useSelector} from 'react-redux';
 
 //Please add the Custom component import below.
 
@@ -18,6 +19,9 @@ interface props {
 const HomeScreen = ({navigation}: props) => {
   //If using useState hook place them below
   const [responseData, setResponseData] = useState({});
+  const isLoggedIn = useSelector((state) => state);
+  console.log('===>1', isLoggedIn);
+
   //If using use effests place them below.
   useEffect(() => {
     doApiCall();
@@ -44,9 +48,24 @@ const HomeScreen = ({navigation}: props) => {
   const onButtonPress = () => {
     if (!responseData) {
       doApiCall();
-      responseData && alert(JSON.stringify(responseData));
+      responseData &&
+        Alert.alert('Alert Title', JSON.stringify(responseData), [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
     } else {
-      alert(JSON.stringify(responseData));
+      Alert.alert('Alert Title', JSON.stringify(responseData), [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
     }
   };
 

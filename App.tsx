@@ -9,7 +9,7 @@
  */
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -17,6 +17,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {setJSExceptionHandler} from 'react-native-exception-handler';
 import crashlytics from '@react-native-firebase/crashlytics';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 
 import ErrorFallbackUI from '@component/ErrorFallBackUI';
 import ErrorBoundary from '@component/ErrorBoundary';
@@ -25,12 +27,16 @@ import HomeScreen from 'screens/HomeScreen';
 import SampleScreen from '@screens/SampleScreen';
 import TabScreen from '@screens/TabScreen';
 
+import configureStore from 'redux/store/storeConfig';
+
 import {crashesErrors} from '@static/errorMessages';
 import {ErrorInterface} from '@utils/interface';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+const {store, persistor} = configureStore();
 
 const App = () => {
   const [hasError, setHasError] = useState(false);
@@ -87,36 +93,47 @@ const App = () => {
 
   return (
     <View style={{flex: 1}}>
-      {hasError === true ? (
-        <ErrorFallbackUI
-          onRetry={_onRetry}
-          content={crashesErrors.applicationCrash}
-          buttonText="Retry"
-          accessibiltyText="btnRetryEH"
-        />
-      ) : (
-        <ErrorBoundary>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
-              <Stack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{title: 'Home'}}
-              />
-              <Stack.Screen
-                name="Sample"
-                component={SampleScreen}
-                options={{title: 'Sample'}}
-              />
-              <Stack.Screen
-                name="BottomTabs"
-                component={DrawerScreens}
-                options={{headerShown: false}}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </ErrorBoundary>
-      )}
+      <Provider store={store}>
+        <PersistGate
+          loading={
+            <View
+              style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+              <ActivityIndicator />
+            </View>
+          }
+          persistor={persistor}>
+          {hasError === true ? (
+            <ErrorFallbackUI
+              onRetry={_onRetry}
+              content={crashesErrors.applicationCrash}
+              buttonText="Retry"
+              accessibiltyText="btnRetryEH"
+            />
+          ) : (
+            <ErrorBoundary>
+              <NavigationContainer>
+                <Stack.Navigator initialRouteName="Home">
+                  <Stack.Screen
+                    name="HomeScreen"
+                    component={HomeScreen}
+                    options={{title: 'Home'}}
+                  />
+                  <Stack.Screen
+                    name="Sample"
+                    component={SampleScreen}
+                    options={{title: 'Sample'}}
+                  />
+                  <Stack.Screen
+                    name="BottomTabs"
+                    component={DrawerScreens}
+                    options={{headerShown: false}}
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </ErrorBoundary>
+          )}
+        </PersistGate>
+      </Provider>
     </View>
   );
 };
