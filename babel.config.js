@@ -17,8 +17,17 @@ module.exports = {
         ],
         alias: {
           '@screens': './src/screens',
+          '@utils': './src/Utils',
+          '@component': './src/Component',
+          '@static': './src/static',
+          '@redux': './src/redux',
         },
       },
     ],
   ],
+  env: {
+    production: {
+      plugins: ['react-native-paper/babel'],
+    },
+  },
 };
