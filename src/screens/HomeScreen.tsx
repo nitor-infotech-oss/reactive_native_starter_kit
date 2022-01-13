@@ -64,7 +64,7 @@ const HomeScreen = ({navigation}: props) => {
           {buttonsTitle.generalNext}
         </Button>
         <Button onPress={() => onNavigate('BottomTabs')} style={styles.button}>
-          <Tab name={'tab'} size={12} />
+          <Tab name={'tab'} size={15} color={'white'} />
           {buttonsTitle.generalTabButton}
         </Button>
       </View>
