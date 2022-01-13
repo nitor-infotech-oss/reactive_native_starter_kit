@@ -31,6 +31,9 @@ import configureStore from 'redux/store/storeConfig';
 
 import {crashesErrors} from '@static/errorMessages';
 import {ErrorInterface} from '@utils/interface';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Foundation from 'react-native-vector-icons/Foundation';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -69,8 +72,20 @@ const App = () => {
   function BottomTabs() {
     return (
       <Tab.Navigator>
-        <Tab.Screen name="Tab" component={TabScreen} />
-        <Tab.Screen name="Sample" component={SampleScreen} />
+        <Tab.Screen name="Tab" component={TabScreen} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="tab" color={color} size={size} />
+          ),
+        }}
+        />
+        <Tab.Screen name="Sample" component={SampleScreen} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Foundation name="page" color={color} size={size} />
+          ),
+        }}
+        />
       </Tab.Navigator>
     );
   }
